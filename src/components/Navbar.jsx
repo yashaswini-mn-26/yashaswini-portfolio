@@ -89,7 +89,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle Theme">
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <a href="/resume.pdf" target="_blank" className="btn-nav-resume">
+          <a href="/Yashaswini MN.pdf" target="_blank" className="btn-nav-resume">
             Resume
           </a>
         </div>
