@@ -1,0 +1,123 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  transition: background-color 0.3s ease, border-bottom 0.3s ease, backdrop-filter 0.3s ease;
+  padding: 30px 0;
+}
+
+.navbar-scrolled {
+  background-color: var(--nav-bg); /* Uses dynamic variable for Light/Dark mode */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 15px 0;
+}
+
+.navbar-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 35px;
+}
+
+.nav-item {
+  color: var(--text-sec);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color var(--anim-duration) var(--ease-out);
+  position: relative;
+}
+
+.nav-item:hover {
+  color: var(--text-main);
+}
+
+/* Subtle underline on hover */
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width var(--anim-duration) var(--ease-out);
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+/* --- Action Section (Theme Toggle + Resume Button) --- */
+.nav-action {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-sec);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: color var(--anim-duration) var(--ease-out), background-color var(--anim-duration) var(--ease-out);
+}
+
+.theme-toggle-btn:hover {
+  color: var(--accent);
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Resume Button Styles */
+.btn-nav-resume {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--accent);
+  padding: 8px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color var(--anim-duration) var(--ease-out), color var(--anim-duration) var(--ease-out);
+}
+
+.btn-nav-resume:hover {
+  color: white;
+  background-color: var(--accent); /* Now seamlessly uses the blue accent variable */
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+  .nav-links, .nav-action {
+    display: none; /* Can be expanded into a mobile hamburger menu later */
+  }
+}

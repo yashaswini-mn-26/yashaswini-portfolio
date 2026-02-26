@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* --- DARK MODE (Default) --- */
+  --bg-main: #0B1120;
+  --bg-alt: #0F172A;
+  --text-main: #E5E7EB;
+  --text-sec: #9CA3AF;
+  --accent: #3B82F6;
+  --highlight: #38BDF8;
+  --card-bg: #111827;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --nav-bg: rgba(11, 17, 32, 0.85);
+  
+  --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --anim-duration: 300ms;
+}
+
+[data-theme='light'] {
+  /* --- LIGHT MODE --- */
+  --bg-main: #F8FAFC; /* Light slate background */
+  --bg-alt: #F1F5F9; /* Slightly darker slate for alternating sections */
+  --text-main: #0F172A; /* Very dark slate for high contrast */
+  --text-sec: #475569; /* Medium slate for secondary text */
+  --accent: #2563EB; /* Deeper, richer blue for visibility */
+  --highlight: #0284C7; /* Darker sky blue */
+  --card-bg: #FFFFFF; /* Pure white cards */
+  --border-subtle: rgba(0, 0, 0, 0.1); /* Darker borders for light mode */
+  --nav-bg: rgba(248, 250, 252, 0.85); /* Frosted light background */
+--footer-bg: #E2E8F0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+  /* Adds a smooth fade when switching themes */
+  transition: background-color 0.4s ease, color 0.4s ease; 
+}
+
+/* Typography Utility */
+h1, h2, h3 {
+  font-weight: 700;
+  color: var(--text-main);
+  transition: color 0.4s ease;
+}
+
+.section-container {
+  padding: 100px 10%;
+  max-width: 100vw;
+  margin: 0 auto;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: var(--accent);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--anim-duration) var(--ease-out), box-shadow var(--anim-duration) var(--ease-out);
+}
+
+.btn-primary:hover {
+  background-color: var(--highlight);
+  box-shadow: 0 0 15px rgba(var(--accent), 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-main);
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color var(--anim-duration) var(--ease-out), color var(--anim-duration) var(--ease-out);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+html {
+  scroll-behavior: smooth;
+}

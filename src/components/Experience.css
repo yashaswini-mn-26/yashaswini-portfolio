@@ -1,0 +1,176 @@
+.experience-section {
+  background-color: var(--bg-main); /* #0B1120 */
+}
+
+.timeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-left: 40px; /* Space for the timeline line */
+}
+
+/* Timeline Vertical Line */
+.timeline-track-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px;
+  width: 2px;
+  background-color: var(--border-subtle);
+  border-radius: 2px;
+}
+
+.timeline-track-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px;
+  width: 2px;
+  /* Gradient from blue to transparent as requested */
+  background: linear-gradient(to bottom, var(--accent) 0%, rgba(59, 130, 246, 0.1) 80%, transparent 100%);
+  border-radius: 2px;
+  transform-origin: top;
+}
+
+.timeline-items {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Timeline Node/Icon */
+.timeline-node {
+  position: absolute;
+  left: -40px; /* Offset to center over the track */
+  top: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-sec);
+  z-index: 2;
+  transition: border-color var(--anim-duration) var(--ease-out), color var(--anim-duration) var(--ease-out);
+}
+
+.timeline-item:hover .timeline-node {
+  border-color: var(--accent);
+  color: var(--highlight);
+}
+
+.active-node {
+  border-color: var(--accent);
+  color: #fff;
+  background-color: rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+/* The Card */
+.experience-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 30px;
+  transition: border-color var(--anim-duration) var(--ease-out), box-shadow var(--anim-duration) var(--ease-out);
+}
+
+.timeline-item:hover .experience-card {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.exp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 15px;
+}
+
+.exp-role {
+  font-size: 1.3rem;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.exp-company {
+  font-size: 1rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.exp-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--text-sec);
+  font-size: 0.9rem;
+}
+
+.exp-location {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.exp-achievements {
+  list-style-type: none;
+  margin-bottom: 24px;
+}
+
+.exp-achievements li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  color: var(--text-sec);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.exp-achievements li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.exp-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.exp-tech-badge {
+  background-color: rgba(59, 130, 246, 0.05);
+  color: var(--highlight);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Responsive constraints */
+@media (max-width: 600px) {
+  .exp-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .exp-meta {
+    align-items: flex-start;
+  }
+}

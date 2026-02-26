@@ -1,0 +1,212 @@
+.skills-section {
+  background-color: var(--bg-alt); /* #0F172A */
+  width: 100vw;
+  position: relative;
+  /* left: 50%;
+  right: 50%; */
+  /* margin-left: -50vw;
+  margin-right: -50vw; */
+  padding: 100px 10%;
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.title-underline {
+  width: 60px;
+  height: 4px;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Card Styling */
+.skill-card {
+  background-color: var(--card-bg); /* #111827 */
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 30px;
+  transition: transform var(--anim-duration) var(--ease-out), 
+              box-shadow var(--anim-duration) var(--ease-out),
+              border-color var(--anim-duration) var(--ease-out);
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+.skill-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.skill-icon-wrapper {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--accent);
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill-header-text h3 {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.yoe-indicator {
+  font-size: 0.85rem;
+  color: var(--text-sec);
+  font-weight: 500;
+}
+
+/* Monochrome to Color Interactive Badges */
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tech-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-sec);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all var(--anim-duration) var(--ease-out);
+  cursor: default;
+  /* Grayscale equivalent */
+  filter: grayscale(100%);
+}
+
+.tech-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-sec);
+  border-radius: 50%;
+  transition: background-color var(--anim-duration) var(--ease-out);
+}
+
+/* Hover: Colorize and slight 3D tilt */
+.tech-badge:hover {
+  filter: grayscale(0%);
+  color: var(--text-main);
+  border-color: var(--accent);
+  background-color: rgba(59, 130, 246, 0.05);
+  transform: rotate(-2deg) scale(1.05);
+}
+
+.tech-badge:hover .tech-dot {
+  background-color: var(--highlight);
+  box-shadow: 0 0 8px var(--highlight);
+}
+
+/* --- INFINITE SCROLL CAROUSEL --- */
+.carousel-container {
+  width: 80vw;
+  margin: 0 auto 80px auto;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 30px 0;
+}
+
+/* Add a fade effect to the left and right edges */
+.carousel-container::before,
+.carousel-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+}
+
+.carousel-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-alt) 0%, transparent 100%);
+}
+
+.carousel-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-alt) 0%, transparent 100%);
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  /* Adjust the 35s to make it scroll faster or slower */
+  animation: scroll-marquee 35s linear infinite;
+}
+
+.carousel-track:hover {
+  /* Optional: pauses the scroll when the user hovers over it */
+  animation-play-state: paused;
+}
+
+.carousel-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 40px;
+  opacity: 0.7;
+  transition: opacity var(--anim-duration) var(--ease-out), transform var(--anim-duration) var(--ease-out);
+  cursor: default;
+}
+
+.carousel-item:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.carousel-icon {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+}
+
+.carousel-name {
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+/* Keyframes for seamless looping */
+@keyframes scroll-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Translates exactly half of the track (since the list is duplicated) */
+    transform: translateX(-50%);
+  }
+}

@@ -1,0 +1,217 @@
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: var(--bg-main);
+  overflow: hidden; /* Prevents background elements from causing horizontal scrolling */
+  margin-top:"100px";
+}
+
+.hero-glow {
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  width: 400px;
+  height: 400px;
+  background-color: var(--accent);
+  opacity: 0.06;
+  filter: blur(120px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* --- Adjusting Layout to Reduce the Gap --- */
+.hero-content {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  margin-top: 50px; /* Negative margin to pull the content up and reduce the gap */
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 700px; /* Prevents text from stretching too far away from the image */
+}
+
+.hero-highlight {
+  color: var(--highlight);
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-description {
+  color: var(--text-sec);
+  font-size: 1.125rem;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+}
+
+/* --- The Architectural Tech Frame for the Image --- */
+.hero-image-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 480px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2vw; 
+}
+
+/* Soft Blue Aura behind the image */
+.hero-image-aura {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background-color: var(--accent);
+  opacity: 0.25; /* Slightly brighter aura */
+  filter: blur(70px);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 1. Offset Solid Rectangle Frame (NOW BRIGHTER & THICKER) */
+.hero-image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  right: 5%;
+  bottom: 20px;
+  left: 15%; 
+  border: 2px solid var(--accent); /* Solid, 100% opacity blue */
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), inset 0 0 15px rgba(59, 130, 246, 0.1); /* Added outer & inner glow */
+  border-radius: 30px;
+  z-index: 0;
+  transition: transform var(--anim-duration) var(--ease-out);
+}
+
+/* 2. Top-Left Dashed "Targeting" Accent (NOW GLOWING) */
+.hero-image-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 5%;
+  width: 180px;
+  height: 150px;
+  border-top: 3px dashed var(--highlight); /* Thicker solid line */
+  border-left: 3px dashed var(--highlight); /* Thicker solid line */
+  border-radius: 30px 0 0 0;
+  z-index: 2;
+  opacity: 1; /* 100% opacity */
+  filter: drop-shadow(0 0 8px var(--highlight)); /* Neon glow effect */
+  transition: transform var(--anim-duration) var(--ease-out);
+}
+
+/* 3. Tech Dot Grid Pattern (NOW BRIGHTER) */
+.tech-dots {
+  position: absolute;
+  bottom: 8%;
+  right: -25px;
+  width: 100px;
+  height: 100px;
+  background-image: radial-gradient(var(--accent) 2px, transparent 2px); /* Switched to blue dots */
+  background-size: 16px 16px;
+  opacity: 0.8; /* High opacity to make it clearly visible */
+  z-index: 0;
+  transition: transform var(--anim-duration) var(--ease-out);
+}
+
+/* 4. NEW: Bottom-Right Solid Corner Bracket */
+.tech-corner {
+  position: absolute;
+  bottom: -5px;
+  right: 2%;
+  width: 80px;
+  height: 80px;
+  border-bottom: 4px solid var(--highlight);
+  border-right: 4px solid var(--highlight);
+  border-radius: 0 0 30px 0;
+  z-index: 2;
+  opacity: 1;
+  filter: drop-shadow(0 0 10px var(--highlight)); /* Strong neon glow */
+  transition: transform var(--anim-duration) var(--ease-out);
+}
+
+.hero-profile-pic {
+  position: relative;
+  z-index: 1;
+  width: 80%; 
+  height: auto;
+  border-radius: 30px 30px 0 0; 
+  object-fit: cover;
+  
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  
+  filter: contrast(1.05) saturate(1.1);
+  transition: transform var(--anim-duration) var(--ease-out);
+}
+
+/* --- Interactive Hover Motions --- */
+.hero-image-wrapper:hover::before {
+  transform: translate(12px, 12px); 
+}
+
+.hero-image-wrapper:hover::after {
+  transform: translate(-8px, -8px); 
+}
+
+.hero-image-wrapper:hover .tech-dots {
+  transform: translate(8px, -8px); 
+}
+
+/* Hover effect for the new corner */
+.hero-image-wrapper:hover .tech-corner {
+  transform: translate(8px, 8px); 
+}
+
+.hero-image-wrapper:hover .hero-profile-pic {
+  transform: translateY(-5px); 
+}
+/* --- Cleaned up Responsive Media Query --- */
+@media (max-width: 968px) {
+  .hero-content {
+    flex-direction: column; /* Stacks image below text */
+    gap: 50px;
+    text-align: center;
+    padding-top: 60px; /* Gives room for navbar */
+  }
+  
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+  
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  
+  .hero-image-wrapper {
+    max-width: 350px;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
