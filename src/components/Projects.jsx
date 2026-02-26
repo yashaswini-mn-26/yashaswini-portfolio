@@ -38,7 +38,7 @@ const projectsData = [
   {
     id: 4,
     title: "Thought Process Systems LLP [Corporate Website]",
-    description: "Live responsive websites for NGOs and Corporate platforms.",
+    description: "Live responsive websites for Corporate platform.",
     impact: "Delivered production-ready UIs focusing on high performance and SEO.",
     tech: ["HTML", "Tailwind", "JS"],
     github: "https://www.thoughtprocess.co.in/",
@@ -78,9 +78,9 @@ const projectsData = [
   {
     id: 8,
     title: "Exskilence Upskilling [Corporate Website]",
-    description: "Designed a complete LMS prototype covering chat, video tracking, and analytics.",
-    impact: "Created high-fidelity workflows, improving UX for educational platforms.",
-    tech: ["Figma", "UI/UX"],
+    description: "Live responsive websites for Corporate platform.",
+    impact: "Delivered production-ready UIs focusing on high performance and SEO.",
+    tech: ["HTML", "Tailwind", "JS", "CSS", "BootStrap"],
     github: "#",
     demo: "https://www.exskilence.com/",
     image: "/exs.png"

@@ -16,7 +16,7 @@ const Contact = () => {
     const formData = new FormData(event.target);
     
     // REPLACE THIS string with your actual Web3Forms access key
-    formData.append("access_key", "50e69df4-e993-4764-86fd-467d45150f63"); 
+    formData.append("access_key", "e51d4d71-e643-4b55-a1db-088b1d5d1aab"); 
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -79,6 +79,9 @@ const Contact = () => {
                 <div className="contact-icon"><SiLeetcode size={20} /></div>
                 <span>LeetCode</span>
               </a>
+                <a href="/Yashaswini MN.pdf" target="_blank" className="btn-primary" style={{ textDecoration: 'none', textAlign: 'center', width:'200px' }}>
+                  Download Resume 
+                </a>
             </div>
           </div>
 
