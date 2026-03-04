@@ -85,7 +85,7 @@ const projectsData = [
     demo: "https://www.exskilence.com/",
     image: "/exs.png"
   },
-    {
+  {
     id: 9,
     title: "Gesture Volume Control",
     description: "Built a real-time hand-gesture recognition system for hands-free volume control.",
@@ -95,7 +95,6 @@ const projectsData = [
     demo: "#",
     image: "/gesture.jpg"
   },
-
 ];
 
 const tiltOptions = {
@@ -111,8 +110,8 @@ const tiltOptions = {
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);
   
-  // FIXED: Changed slice(0, 4) to slice(0, 6) so you get two perfect rows of 3 on desktop!
-  const displayedProjects = showAll ? projectsData : projectsData.slice(0, 6);
+  // CHANGED: slice(0, 3) ensures exactly 1 row on standard laptop screens
+  const displayedProjects = showAll ? projectsData : projectsData.slice(0, 3);
 
   return (
     <section className="projects-section section-container" id="projects">
