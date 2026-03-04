@@ -18,9 +18,9 @@ const projectsData = [
   {
     id: 2,
     title: "AI Story Analyser",
-    description: "Developed a modern, interactive SaaS-inspired portfolio with Light/Dark mode and smooth animations.",
-    impact: "Engineered a high-performance frontend using React, Framer Motion, and CSS Grid.",
-    tech: ["React.js", "Framer Motion", "Vite", "Web3Forms"],
+    description: "Developed a modern, interactive SaaS-inspired AI Story Analyser using React and Model API integration.",
+    impact: "Engineered a high-performance frontend using React, Framer Motion, and Vite, delivering a seamless user experience with real-time AI analysis.",
+    tech: ["React.js", "Framer Motion", "Vite", "OpenAI API", "UI/UX"],
     github: "#",
     demo: "https://gentle-desert-085a3c800.4.azurestaticapps.net/",
     image: "/ai.png"
