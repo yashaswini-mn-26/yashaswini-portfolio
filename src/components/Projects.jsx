@@ -17,13 +17,13 @@ const projectsData = [
   },
   {
     id: 2,
-    title: "Gesture Volume Control",
-    description: "Built a real-time hand-gesture recognition system for hands-free volume control.",
-    impact: "Mapped specific hand landmarks to system audio controls via webcam.",
-    tech: ["Python", "OpenCV", "Mediapipe"],
-    github: "https://github.com/yashaswini-mn/gesture-volume-control/tree/main",
-    demo: "#",
-    image: "/gesture.jpg"
+    title: "AI Story Analyser",
+    description: "Developed a modern, interactive SaaS-inspired portfolio with Light/Dark mode and smooth animations.",
+    impact: "Engineered a high-performance frontend using React, Framer Motion, and CSS Grid.",
+    tech: ["React.js", "Framer Motion", "Vite", "Web3Forms"],
+    github: "#",
+    demo: "https://gentle-desert-085a3c800.4.azurestaticapps.net/",
+    image: "/ai.png"
   },
   {
     id: 3,
@@ -85,6 +85,17 @@ const projectsData = [
     demo: "https://www.exskilence.com/",
     image: "/exs.png"
   },
+    {
+    id: 9,
+    title: "Gesture Volume Control",
+    description: "Built a real-time hand-gesture recognition system for hands-free volume control.",
+    impact: "Mapped specific hand landmarks to system audio controls via webcam.",
+    tech: ["Python", "OpenCV", "Mediapipe"],
+    github: "https://github.com/yashaswini-mn/gesture-volume-control/tree/main",
+    demo: "#",
+    image: "/gesture.jpg"
+  },
+
 ];
 
 const tiltOptions = {
@@ -99,12 +110,14 @@ const tiltOptions = {
 
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);
-  const displayedProjects = showAll ? projectsData : projectsData.slice(0, 4);
+  
+  // FIXED: Changed slice(0, 4) to slice(0, 6) so you get two perfect rows of 3 on desktop!
+  const displayedProjects = showAll ? projectsData : projectsData.slice(0, 6);
 
   return (
     <section className="projects-section section-container" id="projects">
       <div className="section-header">
-        <h2 className="section-title">Engineering Portfolio</h2>
+        <h2 className="section-title">Projects</h2>
         <div className="title-underline"></div>
       </div>
 
