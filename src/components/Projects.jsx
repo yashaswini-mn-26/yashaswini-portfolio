@@ -35,8 +35,18 @@ const projectsData = [
     demo: "https://swapnodaya.com/",
     image: "/swap.png"
   },
+{
+  id: 4,
+  title: "E-Study Online Learning Platform",
+  description: "A full-stack MERN e-learning application featuring a dynamic student dashboard, real-time course progress tracking, and personalized task management.",
+  impact: "Architected a secure, production-ready platform with custom JWT & Google OAuth authentication, Redux state management, resilient REST APIs, and a relational MongoDB database.",
+  tech: ["React", "Redux", "Node.js", "Express", "MongoDB", "JWT", "SendGrid", "Google OAuth"],
+  github: "https://github.com/yashaswini-mn-26/E-Study", // Don't forget to drop your repo link here!
+  demo: "https://e-studyy.vercel.app/",
+  image: "/dashboard.png"
+},
   {
-    id: 4,
+    id: 5,
     title: "Thought Process Systems LLP [Corporate Website]",
     description: "Live responsive websites for Corporate platform.",
     impact: "Delivered production-ready UIs focusing on high performance and SEO.",
@@ -46,7 +56,7 @@ const projectsData = [
     image: "/tps.png"
   },
   {
-    id: 5,
+    id: 6,
     title: "Bookstore Application",
     description: "Developed a full CRUD application for managing bookstore inventories.",
     impact: "Streamlined database operations utilizing a modern JavaScript tech stack.",
@@ -56,7 +66,7 @@ const projectsData = [
     image: "/book.png"
   },
   {
-    id: 6,
+    id: 7,
     title: "Event Management System",
     description: "Web-based system for event creation, registration, and management.",
     impact: "Implemented secure database operations and robust backend logic.",
@@ -66,7 +76,7 @@ const projectsData = [
     image: "/event.png"
   },
   {
-    id: 7,
+    id: 8,
     title: "EStudy - ELearning LMS",
     description: "Designed a complete LMS prototype covering chat, video tracking, and analytics.",
     impact: "Created high-fidelity workflows, improving UX for educational platforms.",
@@ -76,7 +86,7 @@ const projectsData = [
     image: "/dashboard.png"
   },
   {
-    id: 8,
+    id: 9,
     title: "Exskilence Upskilling [Corporate Website]",
     description: "Live responsive websites for Corporate platform.",
     impact: "Delivered production-ready UIs focusing on high performance and SEO.",
@@ -86,7 +96,7 @@ const projectsData = [
     image: "/exs.png"
   },
   {
-    id: 9,
+    id: 10,
     title: "Gesture Volume Control",
     description: "Built a real-time hand-gesture recognition system for hands-free volume control.",
     impact: "Mapped specific hand landmarks to system audio controls via webcam.",
