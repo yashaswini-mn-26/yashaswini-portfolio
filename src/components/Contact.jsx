@@ -1,153 +1,203 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Code, Instagram, Phone, Heart } from 'lucide-react';
-import { SiKaggle, SiLeetcode } from "react-icons/si";
+import { Mail, Github, Linkedin, Phone, Download, Heart, Send, MapPin } from 'lucide-react';
+import { SiKaggle, SiLeetcode } from 'react-icons/si';
 import './Contact.css';
 
+const socialLinks = [
+  { icon: <Mail size={18} />, label: 'Email', value: 'yashaswinimn26@gmail.com', href: 'mailto:yashaswinimn26@gmail.com' },
+  { icon: <Phone size={18} />, label: 'Phone', value: '+91 9353191699', href: 'tel:+919353191699' },
+  { icon: <Linkedin size={18} />, label: 'LinkedIn', value: 'yashaswini-m-n', href: 'https://www.linkedin.com/in/yashaswini-m-n/' },
+  { icon: <Github size={18} />, label: 'GitHub', value: 'yashaswini-mn', href: 'https://github.com/yashaswini-mn/' },
+  { icon: <SiLeetcode size={18} />, label: 'LeetCode', value: 'Yashaswini-m-n', href: 'https://leetcode.com/u/Yashaswini-m-n/' },
+  { icon: <SiKaggle size={18} />, label: 'Kaggle', value: 'yashaswinimn', href: 'https://www.kaggle.com/yashaswinimn' },
+];
+
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
+  const [formState, setFormState] = useState({ name: '', email: '', subject: '', phone: '', message: '' });
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+  const handleChange = (e) => setFormState(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
-    const formData = new FormData(event.target);
-    
-    // REPLACE THIS string with your actual Web3Forms access key
-    formData.append("access_key", "e51d4d71-e643-4b55-a1db-088b1d5d1aab"); 
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    const data = new FormData(e.target);
+    data.append('access_key', 'e51d4d71-e643-4b55-a1db-088b1d5d1aab');
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitStatus('success');
-        event.target.reset(); // Clears the form inputs
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-      
-      // Clear the status message after 5 seconds
-      setTimeout(() => setSubmitStatus(null), 5000);
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+      const json = await res.json();
+      setStatus(json.success ? 'success' : 'error');
+      if (json.success) { setFormState({ name: '', email: '', subject: '', phone: '', message: '' }); }
+    } catch {
+      setStatus('error');
     }
+    setTimeout(() => setStatus(null), 5000);
   };
 
   return (
     <>
       <section className="contact-section section-container" id="contact">
-        <div className="section-header">
-          <h2 className="section-title">Get in Touch</h2>
-          <div className="title-underline"></div>
-        </div>
+        <div className="section-label">Let's Talk</div>
+        <h2 className="section-heading">Get in Touch</h2>
+        <p className="section-subheading">
+          Open to full-time roles, freelance projects, and collaboration. Reach out and I'll get back to you within 24 hours.
+        </p>
 
-        <div className="contact-wrapper">
-          {/* Left: Info & CTA */}
-          <div className="contact-info">
-            <h3 className="contact-heading">Ready to build something scalable?</h3>
-            <p className="contact-desc">
-              I am currently open to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-            </p>
-
-            <div className="contact-links-grid">
-              <a href="mailto:yashaswinimn26@gmail.com" className="contact-link-item">
-                <div className="contact-icon"><Mail size={20} /></div>
-                <span>yashaswinimn26@gmail.com</span>
-              </a>
-              <a href="tel:9353191699" className="contact-link-item">
-                <div className="contact-icon"><Phone size={20} /></div>
-                <span>+91 9353191699</span>
-              </a>
-              <a href="https://www.linkedin.com/in/yashaswini-m-n/" className="contact-link-item" target="_blank" rel="noopener noreferrer">
-                <div className="contact-icon"><Linkedin size={20} /></div>
-                <span>LinkedIn</span>
-              </a>
-              <a href="https://github.com/yashaswini-mn/" className="contact-link-item" target="_blank" rel="noopener noreferrer">
-                <div className="contact-icon"><Github size={20} /></div>
-                <span>GitHub</span>
-              </a>
-              <a href="https://leetcode.com/u/Yashaswini-m-n/" className="contact-link-item" target="_blank" rel="noopener noreferrer">
-                <div className="contact-icon"><SiLeetcode size={20} /></div>
-                <span>LeetCode</span>
-              </a>
-                <a href="/Yashaswini MN.pdf" target="_blank" className="btn-primary" style={{ textDecoration: 'none', textAlign: 'center', width:'200px' }}>
-                  Download Resume 
-                </a>
+        <div className="contact-grid">
+          {/* Left Column */}
+          <motion.div
+            className="contact-info"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="contact-info__location">
+              <MapPin size={14} />
+              Bengaluru, Karnataka, India
             </div>
-          </div>
 
-          {/* Right: The Form */}
+            <div className="contact-info__status">
+              <span className="contact-info__dot" />
+              Available for new opportunities
+            </div>
+
+            <div className="contact-links">
+              {socialLinks.map(({ icon, label, value, href }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="contact-link">
+                  <div className="contact-link__icon">{icon}</div>
+                  <div className="contact-link__text">
+                    <span className="contact-link__label">{label}</span>
+                    <span className="contact-link__value">{value}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            <a href="/YashaswiniMN.pdf" target="_blank" className="btn-primary contact-resume-btn">
+              <Download size={16} /> Download Resume
+            </a>
+          </motion.div>
+
+          {/* Right: Form */}
           <motion.form
             className="contact-form"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            onSubmit={onSubmit}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input type="text" id="name" name="name" placeholder="John Doe" required />
+            <div className="form-row">
+              <div className="form-field">
+                <label htmlFor="name">Name</label>
+                <input
+                  id="name" name="name" type="text"
+                  placeholder="Jane Smith"
+                  value={formState.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email" name="email" type="email"
+                  placeholder="jane@company.com"
+                  value={formState.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="john@company.com" required />
+            <div className="form-field">
+              <label htmlFor="subject">Subject</label>
+              <input
+                id="subject" name="subject" type="text"
+                placeholder="Job opportunity / Project collaboration"
+                value={formState.subject}
+                onChange={handleChange}
+              />
             </div>
 
-            <div className="form-group">
+            <div className="form-field">
+              <label htmlFor="phone">Contact No.</label>
+              <input
+                id="phone" name="phone" type="text"
+                placeholder="+91 xxxxxxxxxx"
+                value={formState.phone}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-field">
               <label htmlFor="message">Message</label>
-              <textarea id="message" name="message" rows="5" placeholder="How can I help you?" required></textarea>
+              <textarea
+                id="message" name="message" rows={10}
+                placeholder="Tell me about your project or opportunity..."
+                value={formState.message}
+                onChange={handleChange}
+                required
+              />
             </div>
 
-            <button type="submit" className="btn-primary w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+            <button type="submit" className="btn-primary form-submit" disabled={status === 'sending'}>
+              {status === 'sending' ? (
+                <span className="form-spinner" />
+              ) : (
+                <><Send size={15} /> Send Message</>
+              )}
             </button>
 
-            {/* Status Messages */}
-            {submitStatus === 'success' && (
-              <p style={{ color: 'var(--highlight)', marginTop: '15px', textAlign: 'center', fontSize: '0.9rem' }}>
-                Message sent successfully! I'll get back to you soon.
-              </p>
+            {status === 'success' && (
+              <motion.p
+                className="form-status form-status--success"
+                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              >
+                Message sent! I'll reply within 24 hours.
+              </motion.p>
             )}
-            {submitStatus === 'error' && (
-              <p style={{ color: '#ef4444', marginTop: '15px', textAlign: 'center', fontSize: '0.9rem' }}>
-                Something went wrong. Please try emailing me directly.
-              </p>
+            {status === 'error' && (
+              <motion.p
+                className="form-status form-status--error"
+                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              >
+                Something went wrong. Email me directly at yashaswinimn26@gmail.com
+              </motion.p>
             )}
           </motion.form>
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="site-footer">
-        <div className="footer-content">
+        <div className="footer-inner">
           <div className="footer-brand">
-            <span className="footer-name">Yashaswini MN</span>
-            <span className="footer-role">Software Developer</span>
+            <span className="footer-logo" >Yashaswini<span style={{color:"#4f8ef7"}}>.</span></span>
+            <br></br>
+            <span className="footer-role">Full Stack Developer & AI Engineer</span>
           </div>
 
           <div className="footer-socials">
-            <a href="https://github.com/yashaswini-mn/" aria-label="GitHub" className="contact-link-item" target="_blank" rel="noopener noreferrer"><Github size={20} /></a>
-            <a href="https://www.linkedin.com/in/yashaswini-m-n/" aria-label="LinkedIn" className="contact-link-item" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
-            <a href="https://www.kaggle.com/yashaswinimn" aria-label="Kaggle" className="contact-link-item" target="_blank" rel="noopener noreferrer"><SiKaggle size={35} /></a>
-            <a href="https://leetcode.com/u/Yashaswini-m-n/" aria-label="LeetCode" className="contact-link-item" target="_blank" rel="noopener noreferrer"><SiLeetcode size={20} /></a>
-            <a href="https://www.instagram.com/_.yashaswiniiiii._/" aria-label="Instagram" className="contact-link-item" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>
+            {[
+              { icon: <Github size={17} />, href: 'https://github.com/yashaswini-mn/', label: 'GitHub' },
+              { icon: <Linkedin size={17} />, href: 'https://www.linkedin.com/in/yashaswini-m-n/', label: 'LinkedIn' },
+              { icon: <SiKaggle size={17} />, href: 'https://www.kaggle.com/yashaswinimn', label: 'Kaggle' },
+              { icon: <SiLeetcode size={17} />, href: 'https://leetcode.com/u/Yashaswini-m-n/', label: 'LeetCode' },
+              { icon: <Mail size={17} />, href: 'mailto:yashaswinimn26@gmail.com', label: 'Email' },
+            ].map(({ icon, href, label }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="footer-social">
+                {icon}
+              </a>
+            ))}
           </div>
         </div>
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Yashaswini MN | All rights reserved</p>
-          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
-            Developed with <Heart size={14} color="var(--accent)" fill="var(--accent)" /> by Yashaswini
-          </p>
+
+        <div className="footer-copy">
+          <p>© {new Date().getFullYear()} Yashaswini MN · All rights reserved</p>
+          <p className="footer-made" style={{textAlign:"center"}}>Made with <Heart size={12} fill="var(--accent)" color="var(--accent)" /> by Yashaswini</p>
         </div>
       </footer>
     </>

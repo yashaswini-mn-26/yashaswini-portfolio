@@ -6,32 +6,29 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
+import './App.css';
 
 function App() {
-  // Check local storage for theme preference, default to dark
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'dark';
-  });
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
 
-  // Apply theme to the HTML root element
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
-  };
+  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark');
 
   return (
     <>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <Hero />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Education />
-      <Contact />
+      <main>
+        <Hero />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Education />
+        <Contact />
+      </main>
     </>
   );
 }

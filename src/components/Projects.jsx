@@ -1,211 +1,299 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Tilt } from 'react-tilt';
-import { Github, ExternalLink, Activity, ChevronDown } from 'lucide-react';
+import { Github, ExternalLink, ChevronDown, Zap } from 'lucide-react';
 import './Projects.css';
 
-const projectsData = [
+const projects = [
   {
     id: 1,
-    title: "Plant Disease Prediction System",
-    description: "Trained CNN-based ML/DL models on 17,000+ leaf images for multi-class disease classification.",
-    impact: "Achieved 97.3% classification accuracy for real-time agricultural disease detection.",
-    tech: ["TensorFlow", "PyTorch", "Deep Learning", "CNN", "OpenCV"],
-    github: "#",
-    demo: "#",
-    image: "/plant.png" 
+    title: 'SentinelAPI',
+    subtitle: 'API Monitoring & Failure Prediction',
+    description: 'Built an API monitoring system to detect frameworks and extract endpoints across Django, Flask, and Express. Developed a Flask-based proxy backend with ML-based API failure prediction for real-time monitoring and latency tracking.',
+    impact: 'Real-time ML-based failure prediction with low-latency monitoring pipeline',
+    tech: ['React', 'TypeScript', 'Flask', 'Machine Learning', 'Python'],
+    github: 'https://github.com/yashaswini-mn-26/api-failure-prediction-frontend.git',
+    demo: 'https://api-failure-prediction-frontend.vercel.app/',
+    featured: true,
+    category: 'ML + Backend',
+    image: '/senapi.png',
   },
   {
     id: 2,
-    title: "AI Story Analyser",
-    description: "Developed a modern, interactive SaaS-inspired AI Story Analyser using React and Model API integration.",
-    impact: "Engineered a high-performance frontend using React, Framer Motion, and Vite, delivering a seamless user experience with real-time AI analysis.",
-    tech: ["React.js", "Framer Motion", "Vite", "OpenAI API", "UI/UX"],
-    github: "#",
-    demo: "https://gentle-desert-085a3c800.4.azurestaticapps.net/",
-    image: "/ai.png"
+    title: 'E-Study LMS',
+    subtitle: 'Full-Stack Learning Management System',
+    description: 'Developed a scalable MERN-based platform with real-time chat, analytics, and progress tracking. Implemented secure authentication using JWT, Google OAuth, and email verification workflows.',
+    impact: 'Secure auth, real-time Socket.IO chat, and full analytics dashboard',
+    tech: ['React', 'Node.js', 'MongoDB', 'Socket.IO', 'JWT', 'Redux'],
+    github: 'https://github.com/yashaswini-mn-26/E-Study',
+    demo: 'https://e-studyy.vercel.app/',
+    featured: true,
+    category: 'Full Stack',
+    image: '/dashboard.png',
   },
   {
     id: 3,
-    title: "Swapnodaya Website",
-    description: "Live responsive websites for NGOs",
-    impact: "Delivered production-ready UIs focusing on high performance and SEO.",
-    tech: ["HTML", "Tailwind", "JS"],
-    github: "#",
-    demo: "https://swapnodaya.com/",
-    image: "/swap.png"
+    title: 'FinFlow',
+    subtitle: 'Finance Dashboard',
+    description: 'Built a responsive financial dashboard with analytics, transaction tracking, and role-based UI. Implemented interactive visualizations and efficient state management for seamless user experience.',
+    impact: 'Role-based access control with interactive Recharts visualizations',
+    tech: ['React', 'TypeScript', 'Recharts', 'TailwindCSS'],
+    github: 'https://github.com/yashaswini-mn-26/Finance-FinFlow.git',
+    demo: 'https://finance-fin-flow.vercel.app/',
+    featured: true,
+    category: 'Frontend',
+    image: '/finflow.png',
   },
-{
-  id: 4,
-  title: "E-Study Online Learning Platform",
-  description: "A full-stack MERN e-learning application featuring a dynamic student dashboard, real-time course progress tracking, and personalized task management.",
-  impact: "Architected a secure, production-ready platform with custom JWT & Google OAuth authentication, Redux state management, resilient REST APIs, and a relational MongoDB database.",
-  tech: ["React", "Redux", "Node.js", "Express", "MongoDB", "JWT", "SendGrid", "Google OAuth"],
-  github: "https://github.com/yashaswini-mn-26/E-Study", // Don't forget to drop your repo link here!
-  demo: "https://e-studyy.vercel.app/",
-  image: "/dashboard.png"
-},
+  {
+    id: 4,
+    title: 'Whisper',
+    subtitle: 'Anonymous Social Platform',
+    description: 'Developed a real-time anonymous social platform enabling secure content sharing and user interaction. Integrated Firebase Authentication and Firestore for real-time updates and scalable backend.',
+    impact: 'Real-time Firestore updates with anonymous identity system',
+    tech: ['React.js', 'Firebase Auth', 'Firestore', 'Real-time DB'],
+    github: 'https://github.com/yashaswini-mn-26/Confession-App.git',
+    demo: 'https://confession-app-livid.vercel.app/',
+    featured: false,
+    category: 'Full Stack',
+    image: '/whisper.png',
+  },
   {
     id: 5,
-    title: "Thought Process Systems LLP [Corporate Website]",
-    description: "Live responsive websites for Corporate platform.",
-    impact: "Delivered production-ready UIs focusing on high performance and SEO.",
-    tech: ["HTML", "Tailwind", "JS"],
-    github: "https://www.thoughtprocess.co.in/",
-    demo: "#",
-    image: "/tps.png"
+    title: 'Plant Disease Prediction',
+    subtitle: 'Deep Learning CNN System',
+    description: 'Trained CNN-based ML/DL models on 17,000+ leaf images for multi-class disease classification. Deployed a real-time inference pipeline for automated predictions.',
+    impact: '97.3% classification accuracy across 17,000+ training images',
+    tech: ['Python', 'TensorFlow', 'PyTorch', 'CNN', 'OpenCV'],
+    github: 'https://github.com/yashaswini-mn-26/Plant-Disease-Prediction.git',
+    demo: '#',
+    featured: false,
+    category: 'ML / AI',
+    image: '/plant.png',
   },
   {
     id: 6,
-    title: "Bookstore Application",
-    description: "Developed a full CRUD application for managing bookstore inventories.",
-    impact: "Streamlined database operations utilizing a modern JavaScript tech stack.",
-    tech: ["MongoDB", "Express.js", "React.js"],
-    github: "https://github.com/yashaswini-mn/BookStore",
-    demo: "#",
-    image: "/book.png"
+    title: 'AI Story Analyser',
+    subtitle: 'NLP-powered SaaS Tool',
+    description: 'Developed a modern, interactive SaaS-inspired AI Story Analyser using React and Model API integration. Engineered a high-performance frontend using React, Framer Motion, and Vite.',
+    impact: 'NLP grammar correction, AI detection, and regional English adaptation',
+    tech: ['React', 'Framer Motion', 'Vite', 'OpenAI API', 'NLP'],
+    github: '#',
+    demo: 'https://gentle-desert-085a3c800.4.azurestaticapps.net/',
+    featured: false,
+    category: 'AI',
+    image: '/ai.png',
+  },
+    {
+    id: 8,
+    title: 'Thought Process Corporate Website',
+    subtitle: 'Corporate Website',
+    description: 'Responsive corporate platform. Modern UI with high accessibility and responsiveness built with Tailwind and Bootstrap.',
+    impact: 'Live production corporate site with analytics integration',
+    tech: ['HTML', 'Tailwind CSS', 'Bootstrap', 'JS'],
+    github: '#',
+    demo: 'https://www.thoughtprocess.co.in/',
+    featured: false,
+    category: 'Frontend',
+    image: '/tps.png',
   },
   {
     id: 7,
-    title: "Event Management System",
-    description: "Web-based system for event creation, registration, and management.",
-    impact: "Implemented secure database operations and robust backend logic.",
-    tech: ["Java", "JSP", "MySQL"],
-    github: "https://github.com/yashaswini-mn/EventManagement",
-    demo: "#",
-    image: "/event.png"
+    title: 'Swapnodaya Website',
+    subtitle: 'NGO Production Platform',
+    description: 'Live responsive website developed for NGO platform. Production-ready UI focusing on performance, accessibility, and SEO optimization.',
+    impact: 'Production live with optimized Lighthouse score',
+    tech: ['HTML', 'Tailwind CSS', 'JavaScript'],
+    github: '#',
+    demo: 'https://swapnodaya.com/',
+    featured: false,
+    category: 'Frontend',
+    image: '/swap.png',
   },
   {
     id: 8,
-    title: "EStudy - ELearning LMS",
-    description: "Designed a complete LMS prototype covering chat, video tracking, and analytics.",
-    impact: "Created high-fidelity workflows, improving UX for educational platforms.",
-    tech: ["Figma", "UI/UX"],
-    github: "https://www.figma.com/proto/wfE3NyjnAilnqfetkk17gl/E-study?node-id=67-52&t=gsRJs75jCqd0yAnV-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2",
-    demo: "#",
-    image: "/dashboard.png"
+    title: 'Exskilence Platform',
+    subtitle: 'Corporate Upskilling Website',
+    description: 'Responsive corporate platform for upskilling programs. Modern UI with high accessibility and responsiveness built with Tailwind and Bootstrap.',
+    impact: 'Live production corporate site with analytics integration',
+    tech: ['HTML', 'Tailwind CSS', 'Bootstrap', 'JS'],
+    github: '#',
+    demo: 'https://www.exskilence.com/',
+    featured: false,
+    category: 'Frontend',
+    image: '/exs.png',
   },
   {
     id: 9,
-    title: "Exskilence Upskilling [Corporate Website]",
-    description: "Live responsive websites for Corporate platform.",
-    impact: "Delivered production-ready UIs focusing on high performance and SEO.",
-    tech: ["HTML", "Tailwind", "JS", "CSS", "BootStrap"],
-    github: "#",
-    demo: "https://www.exskilence.com/",
-    image: "/exs.png"
+    title: 'Gesture Volume Control',
+    subtitle: 'Computer Vision Input System',
+    description: 'Real-time hand gesture recognition system controlling system volume using Mediapipe hand landmark detection mapped to audio controls.',
+    impact: 'Real-time gesture recognition at 30fps with Mediapipe landmarks',
+    tech: ['Python', 'OpenCV', 'Mediapipe', 'Computer Vision'],
+    github: 'https://github.com/yashaswini-mn/gesture-volume-control',
+    demo: '#',
+    featured: false,
+    category: 'ML / AI',
+    image: '/gesture.jpg',
   },
   {
     id: 10,
-    title: "Gesture Volume Control",
-    description: "Built a real-time hand-gesture recognition system for hands-free volume control.",
-    impact: "Mapped specific hand landmarks to system audio controls via webcam.",
-    tech: ["Python", "OpenCV", "Mediapipe"],
-    github: "https://github.com/yashaswini-mn/gesture-volume-control/tree/main",
-    demo: "#",
-    image: "/gesture.jpg"
+    title: 'Bookstore App',
+    subtitle: 'Full CRUD MERN Application',
+    description: 'Full CRUD application for managing bookstore inventories with efficient database operations using the MERN stack.',
+    impact: 'Efficient database operations with REST API design patterns',
+    tech: ['MongoDB', 'Express', 'React', 'Node.js'],
+    github: 'https://github.com/yashaswini-mn/BookStore',
+    demo: '#',
+    featured: false,
+    category: 'Full Stack',
+    image: '/book.png',
+  },
+  {
+    id: 11,
+    title: 'Event Management System',
+    subtitle: 'Java EE Web Application',
+    description: 'Web system for event creation and registration with secure backend and MySQL database integration using Java EE stack.',
+    impact: 'Secure backend with MySQL, JDBC, and Java Servlets',
+    tech: ['Java', 'JSP', 'MySQL', 'Servlets', 'JDBC'],
+    github: 'https://github.com/yashaswini-mn/EventManagement',
+    demo: '#',
+    featured: false,
+    category: 'Full Stack',
+    image: '/event.png',
+  },
+  {
+    id: 12,
+    title: 'EStudy LMS Prototype',
+    subtitle: 'UI/UX Figma Design System',
+    description: 'Complete LMS UI prototype with analytics and video tracking. Improved UX workflows for educational platforms with full design system.',
+    impact: 'End-to-end design with analytics dashboard and user flows',
+    tech: ['Figma', 'UI/UX', 'Design System', 'Prototyping'],
+    github: 'https://www.figma.com/proto/wfE3NyjnAilnqfetkk17gl/E-study',
+    demo: '#',
+    featured: false,
+    category: 'Design',
+    image: '/dashboard.png',
   },
 ];
 
-const tiltOptions = {
-  reverse: true,
-  max: 5, 
-  perspective: 1500,
-  scale: 1.02,
-  speed: 400,
-  transition: true,
-  easing: "cubic-bezier(.03,.98,.52,.99)",
+const categories = ['All', 'Full Stack', 'ML / AI', 'Frontend', 'Backend', 'Design'];
+
+const categoryColor = {
+  'Full Stack': 'blue',
+  'ML / AI': 'purple',
+  'Frontend': 'teal',
+  'Backend': 'orange',
+  'ML + Backend': 'purple',
+  'AI': 'purple',
+  'Design': 'pink',
 };
 
+const ProjectCard = ({ project, index }) => (
+  <motion.div
+    layout
+    key={project.id}
+    initial={{ opacity: 0, y: 24 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, scale: 0.96 }}
+    transition={{ duration: 0.4, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+    className={`project-card ${project.featured ? 'project-card--featured' : ''}`}
+  >
+    <div className="project-card__image">
+      <img src={project.image} alt={project.title} loading="lazy" />
+      <div className="project-card__image-overlay" />
+      <span className={`project-card__category project-card__category--${categoryColor[project.category] || 'blue'}`}>
+        {project.category}
+      </span>
+    </div>
+
+    <div className="project-card__body">
+      <div className="project-card__header">
+        <h3 className="project-card__title">{project.title}</h3>
+        <p className="project-card__subtitle">{project.subtitle}</p>
+      </div>
+
+      <p className="project-card__desc">{project.description}</p>
+
+      <div className="project-card__impact">
+        <Zap size={12} />
+        <span>{project.impact}</span>
+      </div>
+
+      <div className="project-card__tech">
+        {project.tech.slice(0, 4).map(t => (
+          <span key={t} className="mono-tag">{t}</span>
+        ))}
+        {project.tech.length > 4 && (
+          <span className="mono-tag mono-tag--muted">+{project.tech.length - 4}</span>
+        )}
+      </div>
+
+      <div className="project-card__links">
+        {project.github && project.github !== '#' && (
+          <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-card__link">
+            <Github size={14} /> Code
+          </a>
+        )}
+        {project.demo && project.demo !== '#' && (
+          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__link project-card__link--primary">
+            <ExternalLink size={14} /> Live Demo
+          </a>
+        )}
+      </div>
+    </div>
+  </motion.div>
+);
+
 const Projects = () => {
+  const [activeCategory, setActiveCategory] = useState('All');
   const [showAll, setShowAll] = useState(false);
-  
-  // CHANGED: slice(0, 3) ensures exactly 1 row on standard laptop screens
-  const displayedProjects = showAll ? projectsData : projectsData.slice(0, 3);
+
+  const filtered = activeCategory === 'All'
+    ? projects
+    : projects.filter(p => p.category === activeCategory || p.category.includes(activeCategory.replace(' / AI', '')));
+
+  const displayed = showAll ? filtered : filtered.slice(0, 6);
 
   return (
     <section className="projects-section section-container" id="projects">
-      <div className="section-header">
-        <h2 className="section-title">Projects</h2>
-        <div className="title-underline"></div>
+      <div className="projects-header">
+        <div className="section-label">Portfolio</div>
+        <h2 className="section-heading">Selected Projects</h2>
+        <p className="section-subheading">
+          A collection of production-grade applications across full-stack development, machine learning, and AI engineering.
+        </p>
+
+        {/* Category Filter */}
+        <div className="projects-filter">
+          {categories.map(cat => (
+            <button
+              key={cat}
+              onClick={() => { setActiveCategory(cat); setShowAll(false); }}
+              className={`projects-filter__btn ${activeCategory === cat ? 'projects-filter__btn--active' : ''}`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <motion.div layout className="bento-grid">
-        <AnimatePresence>
-          {displayedProjects.map((project, index) => (
-            <motion.div 
-              key={project.id}
-              layout
-              className="bento-wrapper"
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-              transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
-            >
-              <Tilt options={tiltOptions} className="bento-card">
-                
-                <div className="bento-image-container">
-                  <div className="bento-image-overlay"></div>
-                  <img src={project.image} alt={project.title} className="bento-image" />
-                </div>
-
-                <div className="bento-content">
-                  <div className="bento-content-top">
-                    <h3 className="bento-title">{project.title}</h3>
-                    <p className="bento-desc">{project.description}</p>
-                    
-                    <div className="bento-tech">
-                      {project.tech.map((tech, i) => (
-                        <span key={i} className="bento-tech-badge">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="bento-impact-box">
-                    <div className="bento-impact-header">
-                      <Activity size={14} className="impact-icon" />
-                      <span>Impact</span>
-                    </div>
-                    <p className="bento-impact-text">{project.impact}</p>
-                  </div>
-
-                  {/* Conditionally Rendered Links */}
-                  <div className="bento-links">
-                    {project.github !== "#" && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="bento-link" aria-label="GitHub">
-                        <Github size={16} /> <span>Code</span>
-                      </a>
-                    )}
-                    {project.demo !== "#" && (
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="bento-link" aria-label="Demo">
-                        <ExternalLink size={16} /> <span>Live</span>
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-              </Tilt>
-            </motion.div>
+      <motion.div layout className="projects-grid">
+        <AnimatePresence mode="popLayout">
+          {displayed.map((project, i) => (
+            <ProjectCard key={project.id} project={project} index={i} />
           ))}
         </AnimatePresence>
       </motion.div>
 
-      <motion.div layout className="projects-action-container">
-        <button 
-          className="btn-show-more" 
-          onClick={() => setShowAll(!showAll)}
-        >
-          <span>{showAll ? "Show Less" : "View All Projects"}</span>
-          <motion.div 
-            animate={{ rotate: showAll ? 180 : 0 }} 
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            <ChevronDown size={20} />
-          </motion.div>
-        </button>
-      </motion.div>
-
+      {filtered.length > 6 && (
+        <motion.div layout className="projects-footer">
+          <button className="btn-secondary projects-more-btn" onClick={() => setShowAll(!showAll)}>
+            {showAll ? 'Show Less' : `View All ${filtered.length} Projects`}
+            <motion.span animate={{ rotate: showAll ? 180 : 0 }} transition={{ duration: 0.3 }}>
+              <ChevronDown size={16} />
+            </motion.span>
+          </button>
+        </motion.div>
+      )}
     </section>
   );
 };

@@ -1,176 +1,213 @@
 .experience-section {
-  background-color: var(--bg-main); /* #0B1120 */
+  background: var(--bg-base);
 }
 
-.timeline-container {
+.exp-timeline {
   position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding-left: 40px; /* Space for the timeline line */
+  max-width: 100%;
+  padding-left: 48px;
 }
 
-/* Timeline Vertical Line */
-.timeline-track-bg {
+/* Track */
+.exp-track {
   position: absolute;
-  top: 0;
+  top: 8px;
   bottom: 0;
-  left: 15px;
-  width: 2px;
-  background-color: var(--border-subtle);
-  border-radius: 2px;
+  left: 16px;
+  width: 1px;
 }
 
-.timeline-track-fill {
+.exp-track__bg {
+  position: absolute;
+  inset: 0;
+  background: var(--border-subtle);
+}
+
+.exp-track__fill {
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: 15px;
-  width: 2px;
-  /* Gradient from blue to transparent as requested */
-  background: linear-gradient(to bottom, var(--accent) 0%, rgba(59, 130, 246, 0.1) 80%, transparent 100%);
-  border-radius: 2px;
+  left: 0;
+  right: 0;
+  background: var(--gradient-primary);
   transform-origin: top;
 }
 
-.timeline-items {
+/* Items */
+.exp-items {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 32px;
 }
 
-.timeline-item {
+.exp-item {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
 }
 
-/* Timeline Node/Icon */
-.timeline-node {
+/* Node */
+.exp-node {
   position: absolute;
-  left: -40px; /* Offset to center over the track */
-  top: 0;
+  left: -48px;
+  top: 20px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: var(--card-bg);
-  border: 2px solid var(--border-subtle);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-sec);
+  color: var(--text-tertiary);
   z-index: 2;
-  transition: border-color var(--anim-duration) var(--ease-out), color var(--anim-duration) var(--ease-out);
+  transition: all 0.3s ease;
 }
 
-.timeline-item:hover .timeline-node {
+.exp-node--active {
   border-color: var(--accent);
-  color: var(--highlight);
+  color: var(--accent);
+  background: var(--accent-dim);
+  box-shadow: 0 0 16px var(--accent-glow);
 }
 
-.active-node {
+.exp-item:hover .exp-node {
   border-color: var(--accent);
-  color: #fff;
-  background-color: rgba(59, 130, 246, 0.2);
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+  color: var(--accent);
 }
 
-/* The Card */
-.experience-card {
-  background-color: var(--card-bg);
+/* Card */
+.exp-card {
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 30px;
-  transition: border-color var(--anim-duration) var(--ease-out), box-shadow var(--anim-duration) var(--ease-out);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.timeline-item:hover .experience-card {
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+.exp-item:hover .exp-card {
+  border-color: var(--border-default);
+  box-shadow: var(--card-shadow);
 }
 
-.exp-card-header {
+.exp-card__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 20px;
   flex-wrap: wrap;
-  gap: 15px;
   margin-bottom: 20px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--border-subtle);
-  padding-bottom: 15px;
 }
 
-.exp-role {
-  font-size: 1.3rem;
-  color: var(--text-main);
-  margin-bottom: 4px;
+.exp-card__left {
+  flex: 1;
 }
 
-.exp-company {
-  font-size: 1rem;
-  color: var(--accent);
+.exp-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.exp-card__role {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.exp-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+
+.exp-badge--active {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+.exp-badge--type {
+  background: var(--bg-elevated);
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-subtle);
+}
+
+.exp-card__company {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
   font-weight: 500;
+  color: var(--accent);
+  transition: color 0.2s ease;
 }
 
-.exp-meta {
+.exp-card__company:hover { color: var(--highlight); }
+
+.exp-card__meta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  color: var(--text-sec);
-  font-size: 0.9rem;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
-.exp-location {
-  font-size: 0.85rem;
-  opacity: 0.8;
-}
-
-.exp-achievements {
-  list-style-type: none;
-  margin-bottom: 24px;
-}
-
-.exp-achievements li {
-  position: relative;
-  padding-left: 20px;
-  margin-bottom: 12px;
-  color: var(--text-sec);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.exp-achievements li::before {
-  content: "▹";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--accent);
-  font-size: 1.1rem;
-}
-
-.exp-tech-stack {
+.exp-card__meta-item {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* Highlights */
+.exp-card__highlights {
+  list-style: none;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.exp-tech-badge {
-  background-color: rgba(59, 130, 246, 0.05);
-  color: var(--highlight);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
+.exp-card__highlights li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.65;
 }
 
-/* Responsive constraints */
-@media (max-width: 600px) {
-  .exp-card-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .exp-meta {
-    align-items: flex-start;
-  }
+.exp-card__highlights li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.75rem;
+  top: 3px;
+}
+
+/* Tech */
+.exp-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .exp-timeline { padding-left: 36px; }
+  .exp-node { left: -36px; }
+  .exp-card__header { flex-direction: column; }
+  .exp-card__meta { align-items: flex-start; }
 }

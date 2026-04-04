@@ -1,149 +1,162 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Menu, X } from 'lucide-react'; // Added Menu and X
+import { Sun, Moon, Menu, X, Download } from 'lucide-react';
 import './Navbar.css';
+
+const navLinks = [
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Experience', href: '#experience' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Education', href: '#education' },
+  { name: 'Contact', href: '#contact' },
+];
 
 const Navbar = ({ theme, toggleTheme }) => {
   const [scrolled, setScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Handle scroll detection for the navbar background
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Prevent background scrolling when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isMobileMenuOpen]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+    navLinks.forEach(({ href }) => {
+      const el = document.querySelector(href);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
-  const handleSmoothScroll = (e, targetId) => {
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  const smoothScroll = (e, id) => {
     e.preventDefault();
-    setIsMobileMenuOpen(false); // Close mobile menu when a link is clicked
-    
-    const targetElement = document.querySelector(targetId);
-    
-    if (targetElement) {
-      const navbarHeight = 80; 
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+    setMobileOpen(false);
+    const el = document.querySelector(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   };
 
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   return (
-    <motion.nav 
-      className={`navbar ${scrolled || isMobileMenuOpen ? 'navbar-scrolled' : ''}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    <motion.nav
+      className={`navbar ${scrolled || mobileOpen ? 'navbar--scrolled' : ''}`}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="navbar-container">
-        <a 
-          href="#top" 
-          className="nav-logo"
-          onClick={(e) => {
-            e.preventDefault();
-            setIsMobileMenuOpen(false);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+      <div className="navbar__inner">
+        {/* Logo */}
+        <a
+          href="#about"
+          className="navbar__logo"
+          onClick={(e) => smoothScroll(e, '#about')}
         >
-          Yashaswini<span>.</span>
+          <span className="navbar__logo-yn">YN</span>
+          <span className="navbar__logo-dot">.</span>
         </a>
 
-        {/* Desktop Navigation */}
-        <div className="nav-links">
-          {navLinks.map((link, index) => (
-            <a 
-              key={index} 
-              href={link.href} 
-              className="nav-item"
-              onClick={(e) => handleSmoothScroll(e, link.href)}
+        {/* Desktop Links */}
+        <nav className="navbar__links">
+          {navLinks.map(({ name, href }) => (
+            <a
+              key={name}
+              href={href}
+              className={`navbar__link ${activeSection === href.slice(1) ? 'navbar__link--active' : ''}`}
+              onClick={(e) => smoothScroll(e, href)}
             >
-              {link.name}
+              {name}
             </a>
           ))}
-        </div>
+        </nav>
 
-        <div className="nav-action">
-          <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle Theme">
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+        {/* Desktop Actions */}
+        <div className="navbar__actions">
+          <button onClick={toggleTheme} className="navbar__icon-btn" aria-label="Toggle theme">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={theme}
+                initial={{ rotate: -30, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 30, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+              </motion.div>
+            </AnimatePresence>
           </button>
-          <a href="/Yashaswini MN.pdf" target="_blank" className="btn-nav-resume">
+          <a href="/YashaswiniMN.pdf" target="_blank" className="navbar__resume-btn">
+            <Download size={14} />
             Resume
           </a>
         </div>
 
-        {/* Mobile Hamburger Button */}
-        <button 
-          className="mobile-menu-btn" 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle Mobile Menu"
+        {/* Mobile toggle */}
+        <button
+          className="navbar__mobile-btn"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <AnimatePresence mode="wait">
+            <motion.div key={mobileOpen ? 'x' : 'menu'} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </motion.div>
+          </AnimatePresence>
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div 
-            className="mobile-menu-overlay"
+        {mobileOpen && (
+          <motion.div
+            className="navbar__mobile-menu"
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: '100vh' }}
+            animate={{ opacity: 1, height: '100dvh' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="mobile-nav-content">
-              {navLinks.map((link, index) => (
-                <motion.a 
-                  key={index} 
-                  href={link.href} 
-                  className="mobile-nav-item"
-                  onClick={(e) => handleSmoothScroll(e, link.href)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + (index * 0.05) }}
+            <div className="navbar__mobile-inner">
+              {navLinks.map(({ name, href }, i) => (
+                <motion.a
+                  key={name}
+                  href={href}
+                  className="navbar__mobile-link"
+                  onClick={(e) => smoothScroll(e, href)}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 * i, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {link.name}
+                  <span className="navbar__mobile-num">0{i + 1}</span>
+                  {name}
                 </motion.a>
               ))}
-              
-              <motion.div 
-                className="mobile-nav-actions"
-                initial={{ opacity: 0, y: 20 }}
+              <motion.div
+                className="navbar__mobile-actions"
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.35, duration: 0.3 }}
               >
-                <button onClick={toggleTheme} className="theme-toggle-btn mobile-theme-btn" aria-label="Toggle Theme">
-                  {theme === 'dark' ? (
-                    <><Sun size={20} /> <span>Light Mode</span></>
-                  ) : (
-                    <><Moon size={20} /> <span>Dark Mode</span></>
-                  )}
+                <button onClick={toggleTheme} className="btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                  {theme === 'dark' ? <><Sun size={16} /> Light Mode</> : <><Moon size={16} /> Dark Mode</>}
                 </button>
-                <a href="/Yashaswini MN.pdf" target="_blank" className="btn-primary" style={{ textDecoration: 'none', textAlign: 'center' }}>
-                  Download Resume
+                <a href="/YashaswiniMN.pdf" target="_blank" className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                  <Download size={16} /> Download Resume
                 </a>
               </motion.div>
             </div>

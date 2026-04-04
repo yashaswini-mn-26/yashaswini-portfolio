@@ -1,129 +1,155 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Briefcase, GraduationCap } from 'lucide-react';
+import { Briefcase, GraduationCap, MapPin, Calendar, ArrowUpRight } from 'lucide-react';
 import './Experience.css';
 
-// Experience Data extracted from your resume
-const experienceData = [
+const experiences = [
   {
     id: 1,
-    role: "Junior Software Developer",
-    company: "Thought Process Systems LLP",
-    date: "07/2025 - Present",
-    location: "Bengaluru, Karnataka",
-    active: true, // Triggers the active blue glow
-    icon: <Briefcase size={20} />,
-    achievements: [
-      "Migrating Kinetic Education's legacy ASP.NET VB system to a scalable React + Django + SQL architecture, building reusable UI components and secure, high-performance REST APIs with optimized queries.",
-      "Enhancing deployment and delivery through Docker & Jenkins CI/CD pipelines while collaborating cross-functionally to improve performance, reliability, and development speed."
+    role: 'Software Developer',
+    company: 'Thought Process Systems LLP',
+    companyUrl: 'https://www.thoughtprocess.co.in/',
+    period: 'Apr 2025 – Present',
+    location: 'Bengaluru, Karnataka',
+    type: 'Full-time',
+    active: true,
+    icon: <Briefcase size={16} />,
+    highlights: [
+      'Migrated 50+ VB.NET pages to a scalable React.js + Django architecture, improving system performance and maintainability.',
+      'Developed 150+ REST APIs using Django REST Framework, enabling high-performance backend services across core systems.',
+      'Optimized SQL Server queries via Django ORM and built Docker-based CI/CD pipelines with Jenkins.',
+      'Developed an AI-powered Story Analyzer using NLP for grammar correction, AI detection, and regional English adaptation.',
+      'Built and deployed 3 production-grade web apps using React.js and Tailwind CSS.',
     ],
-    tech: ["React.js", "Django", "SQL", "Docker", "Jenkins"]
+    tech: ['React.js', 'Django', 'SQL Server', 'Docker', 'Jenkins', 'REST APIs'],
   },
   {
     id: 2,
-    role: "UI/UX & Web Development Intern",
-    company: "Thought Process Systems LLP",
-    date: "04/2025 - 06/2025",
-    location: "Bengaluru, Karnataka",
+    role: 'UI/UX & Web Development Intern',
+    company: 'Thought Process Systems LLP',
+    companyUrl: 'https://www.thoughtprocess.co.in/',
+    period: 'Apr 2025 – Jun 2025',
+    location: 'Bengaluru, Karnataka',
+    type: 'Internship',
     active: false,
-    icon: <Briefcase size={20} />,
-    achievements: [
-      "Designed and delivered 3 responsive, production-ready websites using React, HTML, CSS, JavaScript, Bootstrap, and Tailwind, following component-based architecture and frontend best practices.",
-      "Created UI/UX wireframes and prototypes in Figma and integrated analytics tools (Hotjar, Microsoft Clarity, Segment Pixel, GTM) to drive data-informed UX improvements."
+    icon: <Briefcase size={16} />,
+    highlights: [
+      'Designed and delivered 3 responsive, production-ready websites using React, HTML, CSS, JavaScript, Bootstrap, and Tailwind.',
+      'Created UI/UX wireframes and prototypes in Figma and integrated analytics tools (Hotjar, Microsoft Clarity, Segment Pixel, GTM).',
     ],
-    tech: ["React.js", "Figma", "HTML/CSS", "Tailwind", "Hotjar"]
+    tech: ['React.js', 'Figma', 'Tailwind CSS', 'Hotjar', 'GTM'],
   },
   {
     id: 3,
-    role: "Microsoft Trainee",
-    company: "Microsoft (Training Program)",
-    date: "09/2024 - 10/2024",
-    location: "Mysuru, Karnataka",
+    role: 'Microsoft Azure Trainee',
+    company: 'Microsoft Training Program (Infosys ICT Academy)',
+    companyUrl: '#',
+    period: 'Sep 2024 – Oct 2024',
+    location: 'Mysuru, Karnataka',
+    type: 'Training',
     active: false,
-    icon: <GraduationCap size={20} />,
-    achievements: [
-      "Gained hands-on experience with Microsoft Azure (Compute, Storage, Databases) and built AI-powered prototypes using Azure AI & Cognitive Services.",
-      "Strengthened cloud computing, DevOps, and modern deployment workflow fundamentals through practical implementation."
+    icon: <GraduationCap size={16} />,
+    highlights: [
+      'Gained hands-on experience with Microsoft Azure (Compute, Storage, Databases) and built AI-powered prototypes using Azure AI & Cognitive Services.',
+      'Strengthened cloud computing, DevOps, and modern deployment workflow fundamentals through practical implementation.',
     ],
-    tech: ["Azure", "Azure AI", "DevOps"]
+    tech: ['Azure', 'Azure AI', 'Cognitive Services', 'DevOps'],
   },
   {
     id: 4,
-    role: "Java Intern",
-    company: "QSpiders CampusConnect",
-    date: "08/2023 - 10/2023",
-    location: "Mysuru, Karnataka",
+    role: 'Java Development Intern',
+    company: 'QSpiders CampusConnect',
+    companyUrl: '#',
+    period: 'Aug 2023 – Oct 2023',
+    location: 'Mysuru, Karnataka',
+    type: 'Internship',
     active: false,
-    icon: <Briefcase size={20} />,
-    achievements: [
-      "Strengthened Core Java fundamentals including OOP, Exception Handling, and Collections while building Java EE applications (Servlets, JSP, JDBC) with CRUD and database integration.",
-      "Enhanced debugging skills and clean-code practices through hands-on, industry-oriented exercises."
+    icon: <Briefcase size={16} />,
+    highlights: [
+      'Strengthened Core Java fundamentals including OOP, Exception Handling, and Collections while building Java EE applications.',
+      'Built CRUD applications with Servlets, JSP, and JDBC with MySQL database integration.',
     ],
-    tech: ["Java", "JSP", "JDBC", "Servlets"]
-  }
+    tech: ['Java', 'JSP', 'Servlets', 'JDBC', 'MySQL'],
+  },
 ];
 
 const Experience = () => {
   const containerRef = useRef(null);
-  
-  // Track scroll progress to fill the timeline line
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ['start center', 'end center'],
   });
-
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <section className="experience-section section-container" id="experience">
-      <div className="section-header">
-        <h2 className="section-title">Professional Experience</h2>
-        <div className="title-underline"></div>
-      </div>
+      <div className="section-label">Career</div>
+      <h2 className="section-heading">Professional Experience</h2>
+      <p className="section-subheading">
+        Building real products in production environments, shipping features used by real users.
+      </p>
 
-      <div className="timeline-container" ref={containerRef}>
-        {/* The background track for the timeline */}
-        <div className="timeline-track-bg"></div>
-        {/* The animated fill line */}
-        <motion.div className="timeline-track-fill" style={{ scaleY }}></motion.div>
+      <div className="exp-timeline" ref={containerRef}>
+        {/* Track */}
+        <div className="exp-track">
+          <div className="exp-track__bg" />
+          <motion.div className="exp-track__fill" style={{ scaleY }} />
+        </div>
 
-        <div className="timeline-items">
-          {experienceData.map((item, index) => (
-            <motion.div 
-              key={item.id} 
-              className="timeline-item"
-              initial={{ opacity: 0, x: 30 }}
+        <div className="exp-items">
+          {experiences.map((exp, i) => (
+            <motion.div
+              key={exp.id}
+              className="exp-item"
+              initial={{ opacity: 0, x: 32 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.35, delay: index * 0.1, ease: [0.0, 0.0, 0.2, 1] }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Timeline Node */}
-              <div className={`timeline-node ${item.active ? 'active-node' : ''}`}>
-                <div className="node-icon">{item.icon}</div>
+              {/* Node */}
+              <div className={`exp-node ${exp.active ? 'exp-node--active' : ''}`}>
+                {exp.icon}
               </div>
 
-              {/* Experience Card */}
-              <div className="experience-card">
-                <div className="exp-card-header">
-                  <div>
-                    <h3 className="exp-role">{item.role}</h3>
-                    <h4 className="exp-company">{item.company}</h4>
+              {/* Card */}
+              <div className="exp-card">
+                <div className="exp-card__header">
+                  <div className="exp-card__left">
+                    <div className="exp-card__title-row">
+                      <h3 className="exp-card__role">{exp.role}</h3>
+                      {exp.active && <span className="exp-badge exp-badge--active">Current</span>}
+                      <span className={`exp-badge exp-badge--type`}>{exp.type}</span>
+                    </div>
+                    <a
+                      href={exp.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="exp-card__company"
+                    >
+                      {exp.company}
+                      {exp.companyUrl !== '#' && <ArrowUpRight size={13} />}
+                    </a>
                   </div>
-                  <div className="exp-meta">
-                    <span className="exp-date">{item.date}</span>
-                    <span className="exp-location">{item.location}</span>
+
+                  <div className="exp-card__meta">
+                    <span className="exp-card__meta-item">
+                      <Calendar size={12} /> {exp.period}
+                    </span>
+                    <span className="exp-card__meta-item">
+                      <MapPin size={12} /> {exp.location}
+                    </span>
                   </div>
                 </div>
 
-                <ul className="exp-achievements">
-                  {item.achievements.map((achievement, i) => (
-                    <li key={i}>{achievement}</li>
+                <ul className="exp-card__highlights">
+                  {exp.highlights.map((h, idx) => (
+                    <li key={idx}>{h}</li>
                   ))}
                 </ul>
 
-                <div className="exp-tech-stack">
-                  {item.tech.map((tech, i) => (
-                    <span key={i} className="exp-tech-badge">{tech}</span>
+                <div className="exp-card__tech">
+                  {exp.tech.map(t => (
+                    <span key={t} className="mono-tag">{t}</span>
                   ))}
                 </div>
               </div>
