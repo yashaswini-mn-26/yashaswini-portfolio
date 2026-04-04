@@ -171,35 +171,52 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="footer-brand">
-            <span className="footer-logo" >Yashaswini<span style={{color:"#4f8ef7"}}>.</span></span>
-            <br></br>
-            <span className="footer-role">Full Stack Developer & AI Engineer</span>
-          </div>
+{/* Footer */}
+<footer className="site-footer">
+  <div className="footer-inner">
+    
+    {/* Brand */}
+    <div className="footer-brand">
+      <span className="footer-logo">
+        Yashaswini<span style={{ color: "#4f8ef7" }}>.</span>
+      </span>
+      <span className="footer-role">
+        Full Stack Developer & AI Engineer
+      </span>
+    </div>
 
-          <div className="footer-socials">
-            {[
-              { icon: <Github size={17} />, href: 'https://github.com/yashaswini-mn/', label: 'GitHub' },
-              { icon: <Linkedin size={17} />, href: 'https://www.linkedin.com/in/yashaswini-m-n/', label: 'LinkedIn' },
-              { icon: <SiKaggle size={17} />, href: 'https://www.kaggle.com/yashaswinimn', label: 'Kaggle' },
-              { icon: <SiLeetcode size={17} />, href: 'https://leetcode.com/u/Yashaswini-m-n/', label: 'LeetCode' },
-              { icon: <Mail size={17} />, href: 'mailto:yashaswinimn26@gmail.com', label: 'Email' },
-            ].map(({ icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="footer-social">
-                {icon}
-              </a>
-            ))}
-          </div>
-        </div>
+    {/* Social Links */}
+    <div className="footer-socials">
+      {[
+        { icon: <Github size={17} />, href: 'https://github.com/yashaswini-mn/', label: 'GitHub' },
+        { icon: <Linkedin size={17} />, href: 'https://www.linkedin.com/in/yashaswini-m-n/', label: 'LinkedIn' },
+        { icon: <SiKaggle size={17} />, href: 'https://www.kaggle.com/yashaswinimn', label: 'Kaggle' },
+        { icon: <SiLeetcode size={17} />, href: 'https://leetcode.com/u/Yashaswini-m-n/', label: 'LeetCode' },
+        { icon: <Mail size={17} />, href: 'mailto:yashaswinimn26@gmail.com', label: 'Email' },
+      ].map(({ icon, href, label }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          className="footer-social"
+        >
+          {icon}
+        </a>
+      ))}
+    </div>
+  </div>
 
-        <div className="footer-copy">
-          <p>© {new Date().getFullYear()} Yashaswini MN · All rights reserved</p>
-          <p className="footer-made" style={{textAlign:"center"}}>Made with <Heart size={12} fill="var(--accent)" color="var(--accent)" /> by Yashaswini</p>
-        </div>
-      </footer>
+  {/* Bottom */}
+  <div className="footer-copy">
+    <p>© {new Date().getFullYear()} Yashaswini MN · All rights reserved</p>
+    <p className="footer-made">
+      Made with{" "}
+      <Heart size={12} fill="var(--accent)" color="var(--accent)" /> by Yashaswini
+    </p>
+  </div>
+</footer>
     </>
   );
 };
