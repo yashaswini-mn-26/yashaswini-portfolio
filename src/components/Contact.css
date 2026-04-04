@@ -66,6 +66,33 @@
   animation: pulse-dot 2.2s ease-in-out infinite;
 }
 
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form {
+    padding: 20px;
+  }
+
+  .section-container {
+    padding: 0 20px;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    font-size: 1rem;
+  }
+  
+}
+
 /* ---- Contact Links ---- */
 .contact-links {
   display: flex;
@@ -164,7 +191,7 @@
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr; */
   gap: 16px;
 }
 

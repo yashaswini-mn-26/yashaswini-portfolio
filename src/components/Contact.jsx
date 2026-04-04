@@ -135,7 +135,7 @@ const Contact = () => {
             <div className="form-field">
               <label htmlFor="message">Message</label>
               <textarea
-                id="message" name="message" rows={10}
+                id="message" name="message" rows={5}
                 placeholder="Tell me about your project or opportunity..."
                 value={formState.message}
                 onChange={handleChange}
